@@ -8,15 +8,19 @@ namespace SAP.Core
 {
     public class LocationService : ILocationService
     {
-        private readonly ILocationRepository _locationRepository;
+        private readonly ILocationsRepository _locationRepository;
+        private readonly ITrucksRepository _trucksRepository;
+
         private readonly ITravelResolverService _travelResolverService;
 
         public LocationService(
-            ILocationRepository locationRepository,
-            ITravelResolverService travelResolverService)
+            ILocationsRepository locationRepository,
+            ITravelResolverService travelResolverService,
+            ITrucksRepository trucksRepository)
         {
             _locationRepository = locationRepository;
             _travelResolverService = travelResolverService;
+            _trucksRepository = trucksRepository;
         }
 
         public List<Distances> GetAllDistances()
@@ -49,5 +53,6 @@ namespace SAP.Core
             var (shortestRoute, shortestDistance) = _travelResolverService.GetShortestRouteByOrigin(distances, origin);
             return new ShortestRouteDTO() { ShortestDistance = shortestDistance, ShortestRoute = shortestRoute };
         }
+
     }
 }

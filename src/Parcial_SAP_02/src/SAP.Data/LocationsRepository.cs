@@ -4,18 +4,18 @@ using SAP.Data.Interfaces;
 
 namespace SAP.Data
 {
-    public class LocationsRepository : ILocationRepository
+    public class LocationsRepository : ILocationsRepository
     {
-        private IDataContext _dataContext;
+        private IDataContext _context;
 
-        public LocationsRepository(IDataContext dataContext)
+        public LocationsRepository(IDataContext context)
         {
-            _dataContext = dataContext;
+            _context = context;
         }
 
         public List<Distances> GetAllDistances()
         {
-            using SqlConnection conn = _dataContext.GetSqlConnection();
+            using SqlConnection conn = _context.GetSqlConnection();
             conn.Open();
             var query = "select id, origin_id, destiny_id, distance from distances";
 
@@ -41,7 +41,7 @@ namespace SAP.Data
 
         public List<Location> GetAllLocations()
         {
-            using SqlConnection conn = _dataContext.GetSqlConnection();
+            using SqlConnection conn = _context.GetSqlConnection();
             conn.Open();
             var query = "select id, [name] from locations";
 

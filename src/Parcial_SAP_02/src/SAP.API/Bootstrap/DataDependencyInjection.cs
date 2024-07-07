@@ -9,7 +9,8 @@ namespace SAP.API.Bootstrap
         {
             services
                 .AddSingleton<IDataContext, DataContext>()
-                .AddSingleton<ILocationRepository, LocationsRepository>();
+                .AddSingleton<ILocationsRepository, LocationsRepository>()
+                .AddSingleton<ITrucksRepository, TrucksRepository>();
         }
     }
 }

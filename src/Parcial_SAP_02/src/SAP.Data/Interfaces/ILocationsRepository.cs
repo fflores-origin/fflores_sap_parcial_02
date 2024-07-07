@@ -2,7 +2,7 @@
 
 namespace SAP.Data.Interfaces
 {
-    public interface ILocationRepository
+    public interface ILocationsRepository
     {
         List<Location> GetAllLocations();
 

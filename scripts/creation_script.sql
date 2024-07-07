@@ -104,12 +104,10 @@ create table travels (
 	finished_on datetime,
 	truck_id int not null,
 	origin_id int,
-	destiny_id int
 
 	constraint pk_travels primary key(id),
 	constraint fk_truck foreign key(truck_id) references trucks(id),
 	constraint fk_location_origin foreign key(origin_id) references locations(id),
-	constraint fk_location_destiny foreign key(destiny_id) references locations(id),
 )
 
 create table travel_routes (
@@ -123,6 +121,16 @@ create table travel_routes (
 )
 
 
+--select 
+--	t.id, 
+--	t.code, 
+--	ts.id as status_id, 
+--	ts.[description] as status_description
+--from trucks t 
+--	join truck_status ts on
+--		t.status_id = ts.id
+--where t.code = 'AG274TL'
+	
 
 --select 
 --	t.id, 
