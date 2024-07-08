@@ -10,17 +10,20 @@ namespace SAP.Core
     {
         private readonly ILocationsRepository _locationRepository;
         private readonly ITrucksRepository _trucksRepository;
+        private readonly ITravelRepository _travelRepository;
 
         private readonly ITravelResolverService _travelResolverService;
 
         public LocationService(
             ILocationsRepository locationRepository,
             ITravelResolverService travelResolverService,
-            ITrucksRepository trucksRepository)
+            ITrucksRepository trucksRepository,
+            ITravelRepository travelRepository)
         {
             _locationRepository = locationRepository;
             _travelResolverService = travelResolverService;
             _trucksRepository = trucksRepository;
+            _travelRepository = travelRepository;
         }
 
         public List<Distances> GetAllDistances()
@@ -31,6 +34,13 @@ namespace SAP.Core
         public List<Location> GetAllLocations()
         {
             return _locationRepository.GetAllLocations();
+        }
+
+        public object GetLastTravelsByTruckCode(string code)
+        { 
+            var travels = _travelRepository.GetLastTenTravelsByTruckCode(code);
+
+            throw new NotImplementedException();
         }
 
         public List<int> GetShortest()

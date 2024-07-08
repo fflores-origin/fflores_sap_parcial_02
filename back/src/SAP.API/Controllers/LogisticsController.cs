@@ -73,13 +73,29 @@ namespace SAP.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        
+        // 1
         [HttpGet("shortestByOrigin")]
         public async Task<IActionResult> GetShortestByOrigin(int origin)
         {
             try
             {
                 var result = _locationService.GetShortest(origin);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        // 2
+        [HttpGet("getLastTravelsByTruckCode")]
+        public async Task<IActionResult> GetLastTravelsByTruckCode(string code)
+        {
+            try
+            {
+                var result = _locationService.GetLastTravelsByTruckCode(code);
                 return Ok(result);
             }
             catch (Exception ex)
