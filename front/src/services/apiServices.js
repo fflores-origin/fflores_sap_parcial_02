@@ -22,3 +22,13 @@ export const getAllTrucks = async () => {
         throw error;
     }
 }
+
+export const getTravelsByTruckCode = async (code) => {
+    try {
+        const response = await axios.get(`${BASEAPI}/getLastTravelsByTruckCode`, { params: { code } });
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data from API', error);
+        throw error;
+    }
+}

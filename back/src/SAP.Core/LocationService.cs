@@ -68,5 +68,10 @@ namespace SAP.Core
         {
             return _travelRepository.GetLastTenTravelsByTruckCode(code);
         }
+
+        public List<Truck> GetAllTrucks()
+        {
+            return _trucksRepository.GetAll();
+        }
     }
 }

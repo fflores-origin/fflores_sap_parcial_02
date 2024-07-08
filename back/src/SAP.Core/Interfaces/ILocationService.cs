@@ -16,5 +16,7 @@ namespace SAP.Core.Interfaces
         ShortestRouteDTO GetShortest(int origin);
 
         List<Travel> GetLastTenTravelsByTruckCode(string code);
+
+        List<Truck> GetAllTrucks();
     }
 }

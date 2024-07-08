@@ -4,11 +4,12 @@ import TravelMap from './components/TravelMap'
 import { travelPoints } from './types/cities';
 // import { travelRoutes } from './types/routes';
 
-import { getShortestByOrigin, getAllTrucks } from './services/apiServices'
+import { getShortestByOrigin, getAllTrucks , getTravelsByTruckCode } from './services/apiServices'
 
 function App() {
 
   const [selectedByDestiny, setSelectedByDestiny] = useState(null)
+  const [selectedTruckCode, setSelectedTruckCode] = useState(null)
   const [trucks, setTrucks] = useState([]);
 
   useEffect(() => {
@@ -29,15 +30,11 @@ function App() {
 
 
   const getTrucksOptions = () => {
-
     if (trucks) {
-
       return trucks.map((x, i) => {
-        return <option key={`truck${i}`} value={x.id}>{x.code}</option>
+        return <option key={`truck${i}`} value={x.code}>{x.code}</option>
       })
     }
-
-
   }
 
 
@@ -59,12 +56,23 @@ function App() {
       setSelectedByDestiny(null)
   }
 
-  const handleSelectTruck = () => {
-
+  const handleOnChangeSelectTruck = (e) => {
+    var data = e.target.value;
+    console.log(data)
+    if (data != null && data != "")
+      setSelectedTruckCode(data)
+    else
+    setSelectedTruckCode(null)
+    
   }
 
-  const handleGetLastTravelsByTruckCode = () => {
+  const handleGetLastTravelsByTruckCode = async () => {
+    if (selectedTruckCode == null) {
+      return
+    }
 
+    const data = await getTravelsByTruckCode(selectedTruckCode);
+    console.log(data);
   }
 
   return (
@@ -97,10 +105,9 @@ function App() {
             <span>Get Lastest travels by Truck Code</span>
             <div className='flex flex-row'>
               <span className='w-[80px] align-middle p-2'>Trucks : </span>
-              <select className='px-5 py-2 border w-[100%] mr-4' onChange={handleSelectTruck}>
+              <select className='px-5 py-2 border w-[100%] mr-4' onChange={handleOnChangeSelectTruck}>
                 {getTrucksOptions()}
               </select>
-
               <button className='bg-[#3086cc] p-1 w-20 rounded-md text-white	font-bold hover:bg-[#143f63]' onClick={handleGetLastTravelsByTruckCode}> Show </button>
             </div>
           </div>
