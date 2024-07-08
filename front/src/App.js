@@ -1,22 +1,47 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import TravelMap from './components/TravelMap'
 import { travelPoints } from './types/cities';
 // import { travelRoutes } from './types/routes';
 
-import { getShortestByOrigin } from './services/apiServices'
+import { getShortestByOrigin, getAllTrucks } from './services/apiServices'
 
 function App() {
+
+  const [selectedByDestiny, setSelectedByDestiny] = useState(null)
+  const [trucks, setTrucks] = useState([]);
+
+  useEffect(() => {
+
+    const fetchData = async () => {
+      const data = await getAllTrucks();
+      if (data) {
+        setTrucks(data);
+      }
+    }
+
+    fetchData()
+
+  }, []);
 
   // var routes = travelRoutes.filter(x => x.originId == 1);
   var routes = []
 
-  const [selectedByDestiny, setSelectedByDestiny] = useState(null)
 
+  const getTrucksOptions = () => {
+
+    if (trucks) {
+
+      return trucks.map((x, i) => {
+        return <option key={`truck${i}`} value={x.id}>{x.code}</option>
+      })
+    }
+
+
+  }
 
 
   const handleSearchByDestiny = async () => {
-
     if (selectedByDestiny == null) {
       return
     }
@@ -34,6 +59,14 @@ function App() {
       setSelectedByDestiny(null)
   }
 
+  const handleSelectTruck = () => {
+
+  }
+
+  const handleGetLastTravelsByTruckCode = () => {
+
+  }
+
   return (
     <div className="flex w-full flex-col">
       <div className='w-[100%] text-center align-middle p-[20px] '>
@@ -44,7 +77,7 @@ function App() {
           <div className='px-6 flex flex-col'>
             <span className='p-2'>Get shortest route by Origin Point</span>
             <div className='flex flex-row'>
-
+              <span className='w-[80px] align-middle p-2'>From : </span>
               <select className='px-5 py-2 border w-[100%] mr-4' onChange={handleSelectByDestinyChange}>
                 <option value=''>SELECT..</option>
                 <option value='1'>CABA</option>
@@ -58,6 +91,17 @@ function App() {
               </select>
 
               <button className='bg-[#3086cc] p-1 w-20 rounded-md text-white	font-bold hover:bg-[#143f63]' onClick={handleSearchByDestiny}> Show </button>
+            </div>
+          </div>
+          <div className='px-6 flex flex-col mt-5'>
+            <span>Get Lastest travels by Truck Code</span>
+            <div className='flex flex-row'>
+              <span className='w-[80px] align-middle p-2'>Trucks : </span>
+              <select className='px-5 py-2 border w-[100%] mr-4' onChange={handleSelectTruck}>
+                {getTrucksOptions()}
+              </select>
+
+              <button className='bg-[#3086cc] p-1 w-20 rounded-md text-white	font-bold hover:bg-[#143f63]' onClick={handleGetLastTravelsByTruckCode}> Show </button>
             </div>
           </div>
         </div>

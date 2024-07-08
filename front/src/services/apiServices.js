@@ -11,3 +11,14 @@ export const getShortestByOrigin = async (origin) => {
         throw error;
     }
 }
+
+
+export const getAllTrucks = async () => {
+    try {
+        const response = await axios.get(`${BASEAPI}/getTrucks`);
+        return response.data;
+    } catch (error) {
+        console.error('Error fetching data from API', error);
+        throw error;
+    }
+}
