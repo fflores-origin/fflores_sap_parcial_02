@@ -1,6 +1,7 @@
-﻿using SAP.Common;
+﻿using System.Data.SqlClient;
+using SAP.Common;
+using SAP.Data.Helpers;
 using SAP.Data.Interfaces;
-using System.Data.SqlClient;
 
 namespace SAP.Data
 {
@@ -18,46 +19,61 @@ namespace SAP.Data
         {
             using SqlConnection conn = _context.GetSqlConnection();
             conn.Open();
-            var query = $@"select top(10)
-	                           t.id,
-	                           t.created_on, 
-	                           t.finished_on, 
-	                           t.truck_id, 
-	                           t.origin_id,
-                               l.[name] location_name,
-	                           tr.code,
-	                           tr.status_id truck_status_id,
-	                           ts.[description] truck_status_description
-                           from travels t
-                           inner join trucks tr on tr.id = t.truck_id
-                           inner join truck_status ts on ts.id = tr.status_id
-                           inner join locations l on l.id = t.origin_id
-                           where tr.code = '{code}'
-                           order by t.created_on desc";
+            var query = $@"EXEC get_travels_by_code @code = N'{code}'";
 
-            var list = new List<Travel>();
+            var travels = new List<Travel>();
 
             using (var command = new SqlCommand(query, conn))
             using (var reader = command.ExecuteReader())
             {
                 while (reader.Read())
                 {
-                    list.Add(new Travel()
+                    var travel = new Travel
                     {
-                        Id = reader.GetInt32(0),
-                        CreatedOn = reader.GetDateTime(1),
-                        FinishedOn = reader.GetDateTime(2),
-                        TruckId = reader.GetInt32(3),
-                        OriginId = reader.GetInt32(4),
-                        Location = new Location() { Id = reader.GetInt32(4), Name = reader.GetString(5) },
-                        Truck = new Truck() { Id = reader.GetInt32(3), Code = reader.GetString(6) },
-                        Route = new List<TravelRoute>()
+                        Id = reader.AsInt("id"),
+                        CreatedOn = reader.AsDateTime("created_on"),
+                        FinishedOn = reader.AsDateTime("finished_on"),
+                        TruckId = reader.AsInt("truck_id"),
+                        OriginId = reader.AsInt("origin_id"),
+                        Location = new Location()
+                        {
+                            Id = reader.AsInt("origin_id"),
+                            Name = reader.AsString("location_name")
+                        },
+                        Truck = new Truck()
+                        {
+                            Id = reader.AsInt("truck_id"),
+                            Code = reader.AsString("code")
+                        }
+                    };
 
-                    });
+                    travels.Add(travel);
+                }
+
+                if (reader.NextResult())
+                {
+                    var routes = new List<TravelRoute>();
+
+                    while (reader.Read())
+                    {
+                        var route = new TravelRoute
+                        {
+                            Id = reader.AsInt("id"),
+                            LocationId = reader.AsInt("location_id"),
+                            Order = reader.AsInt("order"),
+                            TravelId = reader.AsInt("travel_id"),
+                            Actual = reader.AsBoolean("actual"),
+                        };
+
+                        routes.Add(route);
+                    }
+
+                    foreach (var travel in travels)
+                        travel.Route = routes.Where(x => x.TravelId == travel.Id).OrderBy(x => x.Order).ToList();
                 }
             }
 
-            return list; ;
+            return travels; ;
         }
 
         public List<Travel> GetTravelingTrucksState()

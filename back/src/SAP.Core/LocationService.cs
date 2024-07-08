@@ -37,7 +37,7 @@ namespace SAP.Core
         }
 
         public object GetLastTravelsByTruckCode(string code)
-        { 
+        {
             var travels = _travelRepository.GetLastTenTravelsByTruckCode(code);
 
             throw new NotImplementedException();
@@ -64,5 +64,9 @@ namespace SAP.Core
             return new ShortestRouteDTO() { ShortestDistance = shortestDistance, ShortestRoute = shortestRoute };
         }
 
+        public List<Travel> GetLastTenTravelsByTruckCode(string code)
+        {
+            return _travelRepository.GetLastTenTravelsByTruckCode(code);
+        }
     }
 }

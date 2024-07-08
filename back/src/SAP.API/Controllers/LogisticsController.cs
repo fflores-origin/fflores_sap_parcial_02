@@ -66,14 +66,14 @@ namespace SAP.API.Controllers
             try
             {
                 var result = _locationService.GetShortest(origin, destiny);
-                return Ok(result); 
+                return Ok(result);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
         }
-        
+
         // 1
         [HttpGet("shortestByOrigin")]
         public async Task<IActionResult> GetShortestByOrigin(int origin)
@@ -95,7 +95,7 @@ namespace SAP.API.Controllers
         {
             try
             {
-                var result = _locationService.GetLastTravelsByTruckCode(code);
+                var result = _locationService.GetLastTenTravelsByTruckCode(code);
                 return Ok(result);
             }
             catch (Exception ex)

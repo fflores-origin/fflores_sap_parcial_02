@@ -93,10 +93,7 @@ values
 	('AG271TL', 1),
 	('AG272TL', 1),
 	('AG273TL', 1),
-	('AG274TL', 1),
-	('AG275TL', 1),
-	('AG276TL', 1),
-	('AG277TL', 1)
+	('AG274TL', 1)
 
 create table travels (
 	id int not null identity(1,1),
@@ -120,6 +117,33 @@ create table travel_routes (
 	constraint fk_travel foreign key(travel_id) references travels(id),
 )
 
+-- inserts travels
+insert into travels(created_on, finished_on, truck_id, origin_id) values
+ ('2023-01-01', '2023-01-02', 1, 1)
+,('2023-01-02', '2023-01-02', 1, 5)
+,('2023-01-03', '2023-01-04', 1, 1)
+,('2023-01-04', '2023-01-05', 1, 1)
+,('2023-01-05', '2023-01-06', 1, 5)
+,('2023-01-06', '2023-01-07', 1, 1)
+,('2023-01-07', '2023-01-07', 1, 5)
+,('2023-01-07', '2023-01-09', 1, 1)
+,('2023-01-09', '2023-01-10', 1, 1)
+,('2023-01-10', '2023-01-11', 1, 5)
+,('2023-01-12', '2023-01-14', 1, 5)
+
+insert into travels(created_on, finished_on, truck_id, origin_id) values
+ ('2023-01-01', '2023-01-02', 2, 3)
+,('2023-01-02', '2023-01-02', 2, 3)
+,('2023-01-03', '2023-01-04', 2, 4)
+,('2023-01-04', '2023-01-05', 2, 4)
+,('2023-01-05', '2023-01-06', 2, 3)
+
+insert into travels(created_on, finished_on, truck_id, origin_id) values
+ ('2023-01-01', '2023-01-02', 3, 6)
+,('2024-01-01', '2024-01-04', 5, 7)
+,('2024-02-01', '2024-02-06', 5, 8)
+
+--select * from locations
 
 --select 
 --	t.id, 
