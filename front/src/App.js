@@ -305,6 +305,10 @@ function App() {
                       </tr>)
                     })
                   }
+                  {truckTravelsActive === null &&
+                    <tr>
+                      <td className='border text-center p-2' colSpan={3}>Please search trucks</td>
+                    </tr>}
                 </tbody>
               </table>
             </div>
