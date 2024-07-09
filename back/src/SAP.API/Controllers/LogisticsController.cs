@@ -117,5 +117,19 @@ namespace SAP.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("getTravelingTrucks")]
+        public async Task<IActionResult> GetTravelingTrucks()
+        {
+            try
+            {
+                var result = _locationService.GetTrucksTraveling();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

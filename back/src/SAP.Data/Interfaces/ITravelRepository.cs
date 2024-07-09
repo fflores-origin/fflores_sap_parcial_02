@@ -7,5 +7,6 @@ namespace SAP.Data.Interfaces
         List<Travel> GetLastTenTravelsByTruckCode(string code);
 
         List<Travel> GetTravelingTrucksState();
+
     }
 }

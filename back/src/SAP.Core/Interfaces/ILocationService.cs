@@ -18,5 +18,7 @@ namespace SAP.Core.Interfaces
         List<Travel> GetLastTenTravelsByTruckCode(string code);
 
         List<Truck> GetAllTrucks();
+
+        List<Travel> GetTrucksTraveling();
     }
 }

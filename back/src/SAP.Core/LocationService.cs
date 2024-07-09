@@ -73,5 +73,10 @@ namespace SAP.Core
         {
             return _trucksRepository.GetAll();
         }
+
+        public List<Travel> GetTrucksTraveling()
+        {
+            return _travelRepository.GetTravelingTrucksState();
+        }
     }
 }

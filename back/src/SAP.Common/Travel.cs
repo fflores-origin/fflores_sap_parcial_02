@@ -14,7 +14,7 @@ namespace SAP.Common
         }
         public int Id { get; set; }
         public DateTime CreatedOn { get; set; }
-        public DateTime FinishedOn { get; set; }
+        public DateTime? FinishedOn { get; set; }
         public int TruckId { get; set; }
         public int OriginId { get; set; }
 

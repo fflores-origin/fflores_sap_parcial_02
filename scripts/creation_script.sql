@@ -37,7 +37,7 @@ create table locations(
 )
 
 INSERT INTO locations values
-(1, 'CABA'),(2, 'Córdoba'),(3, 'Corrientes'),(4, 'Formosa'),(5, 'La Plata'),(6, 'La Rioja'),(7, 'Mendoza'),(8, 'Neuquen')
+(1, 'CABA'),(2, 'Cï¿½rdoba'),(3, 'Corrientes'),(4, 'Formosa'),(5, 'La Plata'),(6, 'La Rioja'),(7, 'Mendoza'),(8, 'Neuquen')
 
 CREATE TABLE distances (
 	id int not null identity(1,1),
@@ -142,6 +142,23 @@ insert into travels(created_on, finished_on, truck_id, origin_id) values
  ('2023-01-01', '2023-01-02', 3, 6)
 ,('2024-01-01', '2024-01-04', 5, 7)
 ,('2024-02-01', '2024-02-06', 5, 8)
+,('2024-05-01', null, 5, 8)
+
+-- select * 
+-- from travels t join trucks tr
+--	on t.truck_id = tr.id
+-- where t.truck_id = 5
+
+insert into travel_routes(travel_id, location_id, [order], actual) values
+(20, 8, 1, 0 ),
+(20, 5, 2, 0 ),
+(20, 1, 3, 0 ),
+(20, 4, 4, 0 ),
+(20, 3, 5, 0 ),
+(20, 2, 6, 1 ),
+(20, 6, 7, 0 ),
+(20, 7, 8, 0 ),
+(20, 8, 9, 0 )
 
 --select * from locations
 

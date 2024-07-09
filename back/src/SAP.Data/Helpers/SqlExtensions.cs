@@ -1,5 +1,4 @@
-﻿using System.Data;
-using System.Data.SqlClient;
+﻿using System.Data.SqlClient;
 
 namespace SAP.Data.Helpers
 {
@@ -11,8 +10,8 @@ namespace SAP.Data.Helpers
         public static string AsString(this SqlDataReader reader, string columnName)
             => reader.GetString(reader.GetOrdinal(columnName));
 
-        public static DateTime AsDateTime(this SqlDataReader reader, string columnName)
-            => reader.GetDateTime(reader.GetOrdinal(columnName));
+        public static DateTime? AsDateTime(this SqlDataReader reader, string columnName)
+         => reader.IsDBNull(reader.GetOrdinal(columnName)) ? null : reader.GetDateTime(reader.GetOrdinal(columnName));
 
         public static bool AsBoolean(this SqlDataReader reader, string columnName)
             => reader.GetBoolean(reader.GetOrdinal(columnName));
