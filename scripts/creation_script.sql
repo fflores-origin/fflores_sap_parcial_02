@@ -1,10 +1,10 @@
-GO
-USE master
-GO
-IF EXISTS (SELECT name FROM sys.databases WHERE name = 'parcial_02')
-    DROP DATABASE parcial_02;
-GO
-CREATE DATABASE parcial_02;
+--GO
+--USE master
+--GO
+--IF EXISTS (SELECT name FROM sys.databases WHERE name = 'parcial_02')
+--    DROP DATABASE parcial_02;
+--GO
+--CREATE DATABASE parcial_02;
 GO
 USE parcial_02
 
@@ -167,4 +167,14 @@ insert into travel_routes(travel_id, location_id, [order], actual) values
 (3, 4, 2, 0 ),
 (3, 6, 3, 0 ),
 (3, 2, 4, 0 ),
-(3, 3, 5, 0 )
+(3, 3, 5, 0 ),
+
+(4, 6, 1, 0 ),
+(4, 7, 2, 0 ),
+(4, 8, 3, 0 ),
+(4, 5, 4, 0 ),
+(4, 1, 5, 0 ),
+(4, 2, 6, 0 ),
+(4, 6, 7, 0 )
+
+--select * from locations

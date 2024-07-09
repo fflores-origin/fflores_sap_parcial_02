@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASEAPI = 'https://localhost:7251/api/Logistics';
+const BASEAPI = process.env.REACT_APP_APIURL;
 
 export const getShortestByOrigin = async (origin) => {
     try {
