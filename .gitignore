@@ -353,3 +353,4 @@ CBV_Distributor_BaseTests/appsettings.DESKTOP-S6KI11E.json
 /CoverageReport/cobertura.mongoentities.xml
 /CoverageReport/cobertura.sueldos.xml
 /CoverageReport/cobertura.transferencias.xml
+/scripts/*.bak

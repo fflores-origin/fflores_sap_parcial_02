@@ -1,11 +1,11 @@
---GO
---USE master
---GO
---IF EXISTS (SELECT name FROM sys.databases WHERE name = 'parcial_02')
---    DROP DATABASE parcial_02;
---GO
---CREATE DATABASE parcial_02;
---GO
+GO
+USE master
+GO
+IF EXISTS (SELECT name FROM sys.databases WHERE name = 'parcial_02')
+    DROP DATABASE parcial_02;
+GO
+CREATE DATABASE parcial_02;
+GO
 USE parcial_02
 
 GO -- si existen las tablas las elimino
@@ -37,7 +37,7 @@ create table locations(
 )
 
 INSERT INTO locations values
-(1, 'CABA'),(2, 'C�rdoba'),(3, 'Corrientes'),(4, 'Formosa'),(5, 'La Plata'),(6, 'La Rioja'),(7, 'Mendoza'),(8, 'Neuquen')
+(1, 'CABA'),(2, 'Cordoba'),(3, 'Corrientes'),(4, 'Formosa'),(5, 'La Plata'),(6, 'La Rioja'),(7, 'Mendoza'),(8, 'Neuquen')
 
 CREATE TABLE distances (
 	id int not null identity(1,1),
@@ -93,7 +93,7 @@ values
 	('AG271TL', 1),
 	('AG272TL', 1),
 	('AG273TL', 1),
-	('AG274TL', 1)
+	('AG274TL', 2)
 
 create table travels (
 	id int not null identity(1,1),
@@ -119,69 +119,52 @@ create table travel_routes (
 
 -- inserts travels
 insert into travels(created_on, finished_on, truck_id, origin_id) values
- ('2023-01-01', '2023-01-02', 1, 1)
-,('2023-01-02', '2023-01-02', 1, 5)
-,('2023-01-03', '2023-01-04', 1, 1)
-,('2023-01-04', '2023-01-05', 1, 1)
-,('2023-01-05', '2023-01-06', 1, 5)
-,('2023-01-06', '2023-01-07', 1, 1)
-,('2023-01-07', '2023-01-07', 1, 5)
-,('2023-01-07', '2023-01-09', 1, 1)
-,('2023-01-09', '2023-01-10', 1, 1)
-,('2023-01-10', '2023-01-11', 1, 5)
-,('2023-01-12', '2023-01-14', 1, 5)
+ ('2023-01-09', '2023-01-10', 1, 1) -- 1
+,('2023-01-12', '2023-01-14', 1, 5) -- 2
 
 insert into travels(created_on, finished_on, truck_id, origin_id) values
- ('2023-01-01', '2023-01-02', 2, 3)
-,('2023-01-02', '2023-01-02', 2, 3)
-,('2023-01-03', '2023-01-04', 2, 4)
-,('2023-01-04', '2023-01-05', 2, 4)
-,('2023-01-05', '2023-01-06', 2, 3)
+ ('2023-01-01', '2023-01-02', 2, 3) -- 3
 
 insert into travels(created_on, finished_on, truck_id, origin_id) values
- ('2023-01-01', '2023-01-02', 3, 6)
-,('2024-01-01', '2024-01-04', 5, 7)
-,('2024-02-01', '2024-02-06', 5, 8)
-,('2024-05-01', null, 5, 8)
+ ('2023-01-01', '2023-01-02', 3, 6) -- 4
+,('2024-02-01', '2024-02-06', 5, 8) -- 5
+,('2024-05-01', null, 5, 8) -- 6
 
--- select * 
--- from travels t join trucks tr
---	on t.truck_id = tr.id
--- where t.truck_id = 5
+ --select * 
+ --from travels t join trucks tr
+	--on t.truck_id = tr.id
+ --where t.truck_id = 5
 
 insert into travel_routes(travel_id, location_id, [order], actual) values
-(20, 8, 1, 0 ),
-(20, 5, 2, 0 ),
-(20, 1, 3, 0 ),
-(20, 4, 4, 0 ),
-(20, 3, 5, 0 ),
-(20, 2, 6, 1 ),
-(20, 6, 7, 0 ),
-(20, 7, 8, 0 ),
-(20, 8, 9, 0 )
+(6, 8, 1, 0 ),
+(6, 5, 2, 0 ),
+(6, 1, 3, 0 ),
+(6, 4, 4, 0 ),
+(6, 3, 5, 0 ),
+(6, 2, 6, 1 ),
+(6, 6, 7, 0 ),
+(6, 7, 8, 0 ),
+(6, 8, 9, 0 ),
 
---select * from locations
+(5, 8, 1, 0 ),
+(5, 7, 2, 0 ),
+(5, 8, 3, 0 ),
 
---select 
---	t.id, 
---	t.code, 
---	ts.id as status_id, 
---	ts.[description] as status_description
---from trucks t 
---	join truck_status ts on
---		t.status_id = ts.id
---where t.code = 'AG274TL'
-	
+(1, 1, 1, 0 ),
+(1, 3, 2, 0 ),
+(1, 4, 3, 0 ),
+(1, 6, 4, 0 ),
+(1, 1, 5, 0 ),
 
---select 
---	t.id, 
---	t.truck_id, 
---	tr.code,
---	t.origin_id, 
---	t.destiny_id, 
---	d.distance 
---from travels t
---	inner join distances d on 
---		t.origin_id = d.origin_id and t.destiny_id = d.destiny_id
---	inner join trucks tr on
---		tr.id = t.truck_id
+(2, 5, 1, 0 ),
+(2, 1, 2, 0 ),
+(2, 2, 3, 0 ),
+(2, 7, 4, 0 ),
+(2, 8, 5, 0 ),
+(2, 5, 6, 0 ),
+
+(3, 3, 1, 0 ),
+(3, 4, 2, 0 ),
+(3, 6, 3, 0 ),
+(3, 2, 4, 0 ),
+(3, 3, 5, 0 )

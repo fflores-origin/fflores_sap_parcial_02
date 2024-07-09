@@ -118,6 +118,7 @@ namespace SAP.API.Controllers
             }
         }
 
+        // 4
         [HttpGet("getTravelingTrucks")]
         public async Task<IActionResult> GetTravelingTrucks()
         {
